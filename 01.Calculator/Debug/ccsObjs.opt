@@ -1,0 +1,1 @@
+"./main.obj" "./tm4c1231h6pm_startup_ccs.obj" "./Application/calculator.obj" "./Complex Drivers/SW_Timer.obj" "./HAL/keypad.obj" "./HAL/lcd.obj" "./MCAL/EXT_INTERRUPT.obj" "./MCAL/GPTM.obj" "./MCAL/STK_prog.obj" "./MCAL/gpio.obj" "./Service/util.obj" "../tm4c1231h6pm.cmd" -llibc.a 
