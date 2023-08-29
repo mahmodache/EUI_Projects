@@ -9,7 +9,7 @@
 /*                                                                            */
 /* !Coding language : C                                                       */
 /*                                                                            */
-/* !Project         : interfacing Progect @EME - CLASS 1                      */
+/* !Project         : interfacing Project @EME - CLASS 1                      */
 /*                                                                            */
 /* !Target          : TIVA-C TM4C123GH6PM                                     */
 /*                                                                            */
@@ -316,6 +316,8 @@ uint8 GPIO_readPin(uint8 port_num, uint8 pin_num)
                 pin_value = LOGIC_LOW;
             }
             break;
+        default:
+            break;
         }
     }
 
@@ -368,6 +370,8 @@ void GPIO_setupPortDirection(uint8 port_num, GPIO_PortDirectionType direction)
             GPIO_PORTF_DEN_R = 0xFF;
             GPIO_PORTF_DIR_R = direction;
             break;
+        default:
+            break;
         }
     }
 }
@@ -411,6 +415,8 @@ void GPIO_writePort(uint8 port_num, uint8 value)
             break;
         case PORTF_ID:
             GPIO_PORTF_DATA_R = value;
+            break;
+        default:
             break;
         }
     }
@@ -467,7 +473,10 @@ void GPIOF_Handler(void){  GPIOF_isr();  }
 void GPIOF_SetCallBack(void (*ptr_ext)(void)  )
 {
     if (ptr_ext != NULL_PTR)
+    {
         GPIOF_isr= ptr_ext;
+    }
+    else{/*Do Nothing*/};
 
 }
 void GPIOB_Handler(void){  GPIOB_isr();  }
@@ -475,6 +484,9 @@ void GPIOB_Handler(void){  GPIOB_isr();  }
 void GPIOB_SetCallBack(void (*ptr_ext)(void)  )
 {
     if (ptr_ext != NULL_PTR)
+    {
         GPIOB_isr= ptr_ext;
+    }
+    else{/*Do Nothing*/};
 
 }

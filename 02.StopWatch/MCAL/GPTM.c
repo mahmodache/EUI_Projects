@@ -30,6 +30,7 @@
 #include "../Service/common_macros.h"
 #include "REG.h"
 #include "../MCAL/gpio.h"
+#include "GPTM.h"
 
 void GPTM_TimerCaptureInit(void)
 {

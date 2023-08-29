@@ -4,12 +4,13 @@
  *  Created on: Aug 18, 2023
  *      Author:
  */
+#include "SW_Timer.h"
+#include "../Service/std_types.h"
 
-
-void SWT_delay(unsigned int ms)
+void SWT_delay(uint32 ms)
 {
-    unsigned long long t;
-    t = 1500 * ms;
+    uint64 t;
+    t = 1500U * (uint64)ms;
     while(t)
     {
         t--;

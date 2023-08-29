@@ -65,7 +65,7 @@ void KEYPAD_init(void)
 }
 uint8 KEYPAD_getPressedKey(void)
 {
-    uint8 col,row;
+    uint8 column,row;
     GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID, PIN_INPUT);
     GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID+1, PIN_INPUT);
     GPIO_setupPinDirection(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID+2, PIN_INPUT);
@@ -91,22 +91,22 @@ uint8 KEYPAD_getPressedKey(void)
             /* Set/Clear the row output pin */
             GPIO_writePin(KEYPAD_ROW_PORT_ID, KEYPAD_FIRST_ROW_PIN_ID+row, KEYPAD_BUTTON_PRESSED);
 
-            for(col=0 ; col<KEYPAD_NUM_COLS ; col++) /* loop for columns */
+            for(column=0 ; column<KEYPAD_NUM_COLS ; column++) /* loop for columns */
             {
                 /* Check if the switch is pressed in this column */
                 if(GPIO_readPin(KEYPAD_COL_PORT_ID,KEYPAD_FIRST_COL_PIN_ID+col) == KEYPAD_BUTTON_PRESSED)
                 {
 #if (KEYPAD_NUM_COLS == 3)
 #ifdef STANDARD_KEYPAD
-                    return ((row*KEYPAD_NUM_COLS)+col+1);
+                    return ((row*KEYPAD_NUM_COLS)+column+1);
 #else
-                    return KEYPAD_4x3_adjustKeyNumber((row*KEYPAD_NUM_COLS)+col+1);
+                    return KEYPAD_4x3_adjustKeyNumber((row*KEYPAD_NUM_COLS)+column+1);
 #endif
 #elif (KEYPAD_NUM_COLS == 4)
 #ifdef STANDARD_KEYPAD
                     return ((row*KEYPAD_NUM_COLS)+col+1);
 #else
-                    return KEYPAD_4x4_adjustKeyNumber((row*KEYPAD_NUM_COLS)+col+1);
+                    return KEYPAD_4x4_adjustKeyNumber((row*KEYPAD_NUM_COLS)+column+1);
 #endif
 #endif
                 }
@@ -198,37 +198,37 @@ static uint8 KEYPAD_4x4_adjustKeyNumber(uint8 button_number)
     uint8 keypad_button = 0;
     switch(button_number)
     {
-    case 1: keypad_button = 1;
+    case (uint8)1: keypad_button = (uint8)1;
     break;
-    case 2: keypad_button = 2;
+    case (uint8)2: keypad_button = (uint8)2;
     break;
-    case 3: keypad_button = 3;
+    case (uint8)3: keypad_button = (uint8)3;
     break;
-    case 4: keypad_button = '+'; // ASCII Code of %
+    case (uint8)4: keypad_button = (uint8)'+'; // ASCII Code of %
     break;
-    case 5: keypad_button = 4;
+    case (uint8)5: keypad_button = (uint8)4;
     break;
-    case 6: keypad_button = 5;
+    case (uint8)6: keypad_button = (uint8)5;
     break;
-    case 7: keypad_button = 6;
+    case (uint8)7: keypad_button = (uint8)6;
     break;
-    case 8: keypad_button = '*'; /* ASCII Code of '*' */
+    case (uint8)8: keypad_button = (uint8)'*'; /* ASCII Code of '*' */
     break;
-    case 9: keypad_button = 7;
+    case (uint8)9: keypad_button = (uint8)7;
     break;
-    case 10: keypad_button = 8;
+    case (uint8)10: keypad_button = (uint8)8;
     break;
-    case 11: keypad_button = 9;
+    case (uint8)11: keypad_button = (uint8)9;
     break;
-    case 12: keypad_button = '-'; /* ASCII Code of '-' */
+    case (uint8)12: keypad_button = (uint8)'-'; /* ASCII Code of '-' */
     break;
-    case 13: keypad_button = 'C';  /* ASCII of Enter */
+    case (uint8)13: keypad_button = (uint8)'C';  /* ASCII of Enter */
     break;
-    case 14: keypad_button = 0;
+    case (uint8)14: keypad_button = (uint8)0;
     break;
-    case 15: keypad_button = '='; /* ASCII Code of '=' */
+    case (uint8)15: keypad_button = (uint8)'='; /* ASCII Code of '=' */
     break;
-    case 16: keypad_button = '%'; /* ASCII Code of '+' */
+    case (uint8)16: keypad_button = (uint8)'%'; /* ASCII Code of '+' */
     break;
     default: keypad_button = button_number;
     break;
@@ -243,24 +243,24 @@ void KEYPAD_ISR(void)
 {
     if(EXT_BitHandler(PORTB_ID,PIN4_ID)) /* check which Pin fired the interrupt */
      {
-         col=1; /* assign the value of the column Number  */
+         col=(uint8)1; /* assign the value of the column Number  */
          EXT_ClearBitHandler(PORTB_ID,PIN4_ID); /* clear the flag */
      }
      else if(EXT_BitHandler(PORTB_ID,PIN5_ID))
      {
-         col=2;
+         col=(uint8)2;
          EXT_ClearBitHandler(PORTB_ID,PIN5_ID);
      }
      else if(EXT_BitHandler(PORTB_ID,PIN6_ID))
      {
-         col=3;
+         col=(uint8)3;
          EXT_ClearBitHandler(PORTB_ID,PIN6_ID);
      }
      else if(EXT_BitHandler(PORTB_ID,PIN7_ID))
      {
-         col=4;
+         col=(uint8)4;
          EXT_ClearBitHandler(PORTB_ID,PIN7_ID);
-     }
+     }else{/*DO NOTHING*/};
      Columnflag = LOGIC_LOW;
 }
 

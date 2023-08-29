@@ -9,7 +9,7 @@
 /*                                                                            */
 /* !Coding language : C                                                       */
 /*                                                                            */
-/* !Project         : interfacing Progect @EME - CLASS 1                      */
+/* !Project         : interfacing Project @EME - CLASS 1                      */
 /*                                                                            */
 /* !Target          : TIVA-C TM4C123GH6PM                                     */
 /*                                                                            */
@@ -30,6 +30,7 @@
 #include "../Service/common_macros.h"
 #include "REG.h"
 #include "../MCAL/gpio.h"
+#include "GPTM.h"
 
 void GPTM_TimerCaptureInit(void)
 {

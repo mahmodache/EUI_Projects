@@ -1,9 +1,30 @@
-/*
- * STK_int.h
- *
- *  Created on: 18 Aug 2023
- *      Author: dell
- */
+/******************************************************************************/
+/*                                                                            */
+/* !Layer           : Micro-Controller Abstraction Layer (MCAL)               */
+/*                                                                            */
+/* !Module          : Systick                                                 */
+/* !Description     : Systick Module header file                              */
+/*                                                                            */
+/* !File            : STK_int.h                                               */
+/*                                                                            */
+/* !Coding language : C                                                       */
+/*                                                                            */
+/* !Project         : interfacing Progect @EME - CLASS 1                      */
+/*                                                                            */
+/* !Target          : TIVA-C TM4C123GH6PM                                     */
+/*                                                                            */
+/* !Compiler        : Code Composer Studio 8.3.1                              */
+/*                                                                            */
+/*                                                                            */
+/******************************************************************************/
+/* MODIFICATION LOG :                                                         */
+/******************************************************************************/
+/*                                                                            */
+/* !Designed by     : Mahmoud Emara                    !Date : AUG 24, 2023   */
+/* !Coded by        : Mahmoud Emara                    !Date : AUG 24, 2023   */
+/*                                                                            */
+/* Ver 1.0    AUG 23, 2023     Initial release                                */
+/******************************************************************************/
 
 #ifndef STK_INT_H_
 #define STK_INT_H_
@@ -37,6 +58,7 @@ void STK_SetCallBack(void (*ptr_ext)(void)  );
 void STK_dinit(void);
 void STK_reInit(void);
 
+extern void SysTick_Handler(void);
 void (*STK_isr)(void);
 
 /******************************************** STK Peripheral Definition *********************************************/

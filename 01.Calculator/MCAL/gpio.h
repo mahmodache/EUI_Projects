@@ -37,21 +37,21 @@
 #define NUM_OF_PORTS           6
 #define NUM_OF_PINS_PER_PORT   8
 
-#define PORTA_ID               0
-#define PORTB_ID               1
-#define PORTC_ID               2
-#define PORTD_ID               3
-#define PORTE_ID               4
-#define PORTF_ID               5
+#define PORTA_ID               (uint8)0
+#define PORTB_ID               (uint8)1
+#define PORTC_ID               (uint8)2
+#define PORTD_ID               (uint8)3
+#define PORTE_ID               (uint8)4
+#define PORTF_ID               (uint8)5
 
-#define PIN0_ID                0
-#define PIN1_ID                1
-#define PIN2_ID                2
-#define PIN3_ID                3
-#define PIN4_ID                4
-#define PIN5_ID                5
-#define PIN6_ID                6
-#define PIN7_ID                7
+#define PIN0_ID                (uint8)0
+#define PIN1_ID                (uint8)1
+#define PIN2_ID                (uint8)2
+#define PIN3_ID                (uint8)3
+#define PIN4_ID                (uint8)4
+#define PIN5_ID                (uint8)5
+#define PIN6_ID                (uint8)6
+#define PIN7_ID                (uint8)7
 
 /*******************************************************************************
  *                               Types Declaration                             *
@@ -63,7 +63,7 @@ typedef enum
 
 typedef enum
 {
-    PORT_INPUT,PORT_OUTPUT=0xFF
+    PORT_INPUT,PORT_OUTPUT
 }GPIO_PortDirectionType;
 
 void (*GPIOF_isr)(void);
@@ -124,5 +124,8 @@ uint8 GPIO_readPort(uint8 port_num);
 
 void GPIOF_SetCallBack(void (*ptr_ext)(void));
 void GPIOB_SetCallBack(void (*ptr_ext)(void));
+
+extern void GPIOB_Handler(void);
+extern void GPIOF_Handler(void);
 
 #endif /* GPIO_H_ */

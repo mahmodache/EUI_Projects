@@ -50,16 +50,16 @@ void CALC_init(void)
 {
     /* Set the Pins used in the KeyPad */
     GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID,   PIN_INPUT);
-    GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID+1, PIN_INPUT);
-    GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID+2, PIN_INPUT);
-    GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID+3, PIN_INPUT);
+    GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID+(uint8)1, PIN_INPUT);
+    GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID+(uint8)2, PIN_INPUT);
+    GPIO_setupPinDirection(KEYPAD_COL_PORT_ID, KEYPAD_FIRST_COL_PIN_ID+(uint8)3, PIN_INPUT);
 
     /* Set the Pins used in the KeyPad if using interrupt */
 #if CALC_KEYPAD_TYPE==CALC_INTERRUPT
-    EXT_Handler_Config(PORTB_ID, PIN4_ID, 2);
-    EXT_Handler_Config(PORTB_ID, PIN5_ID, 2);
-    EXT_Handler_Config(PORTB_ID, PIN6_ID, 2);
-    EXT_Handler_Config(PORTB_ID, PIN7_ID, 2);
+    EXT_Handler_Config(PORTB_ID, PIN4_ID, (uint8)2);
+    EXT_Handler_Config(PORTB_ID, PIN5_ID, (uint8)2);
+    EXT_Handler_Config(PORTB_ID, PIN6_ID, (uint8)2);
+    EXT_Handler_Config(PORTB_ID, PIN7_ID, (uint8)2);
 #endif
 
     /* Initialise the KeyPad */
@@ -91,9 +91,9 @@ void CALC_start(void)
     sint16 negativeKey=0;   /* negative Key flag , indicate that entered character is a negative number */
 
     /* set the screen to the intro */
-    LCD_displayStringRowColumn(0,3,"**Welcome**");
-    LCD_displayStringRowColumn(1,2,"OUR CALCUATOR");
-    STK_Delyms(2000);
+    LCD_displayStringRowColumn((uint8)0,(uint8)3,"**Welcome**");
+    LCD_displayStringRowColumn((uint8)1,(uint8)2,"OUR CALCUATOR");
+    STK_Delyms((uint32)2000);
     LCD_clearScreen();
 
     while(1)
@@ -112,11 +112,11 @@ void CALC_start(void)
         {
             resDone=0;
             LCD_clearScreen();
-            LCD_moveCursor(0, 0);
+            LCD_moveCursor((uint8)0, (uint8)0);
         }else{/* DO NOTHING , For MISRA-C  */};
 
         /*  check if the first character is operand */
-        if(enterCounter == 1 && key > 9 && key != 45 && key != 'C' && key != '=')
+        if(enterCounter == 1 && key > 9 && key != 45 && key != 67 && key != 61)
         {
             startByOp=1;
         }else{/* DO NOTHING , For MISRA-C*/};
@@ -125,16 +125,16 @@ void CALC_start(void)
         if(enterCounter > 16)
         {
             enterCounter =0;
-            LCD_moveCursor(1, 0); /*  Move the cursor to the second row      */
+            LCD_moveCursor((uint8)1, (uint8)0); /*  Move the cursor to the second row      */
             secondRowRes =1; /*  set the flag to indicate second row is used */
         }else{/* DO NOTHING , For MISRA-C*/};
 
         /*  check if the entered key is the clear key */
-        if(key == 'C')
+        if(key == (uint8)'C')
         {
             /* Reset the screen              */
             LCD_clearScreen();
-            LCD_moveCursor(0, 0);
+            LCD_moveCursor((uint8)0, (uint8)0);
 
             /* Reset all the counters        */
             NUMcounter =0;
@@ -147,21 +147,21 @@ void CALC_start(void)
             for(d=0;d<MaxOperations;d++)
             {
                 numbers[d]=0;
-                operand[d]=0;
+                operand[d]=(uint8)0;
             }
 
             continue; /* Start the super loop again */
         }else{/* DO NOTHING , For MISRA-C*/};
 
         /*  check if the entered key is negative sign */
-        if(key == '-')
+        if(key == (uint8)'-')
         {
             negativeKey = 1;
 
             /* if the previous key is number               *
              * then save '+' instead of '-' and,           *
              * then save the number multiplied by "-1"     */
-            if(prevkey <= 9)
+            if(prevkey <= (uint8)9)
             {
                 /*  save the '+' operand and this increment the counters  */
                 operand[OPcounter]='+';
@@ -172,11 +172,11 @@ void CALC_start(void)
             LCD_displayCharacter(key);
 
             /* if negative sign is entered this loop is set to wait and take the next character */
-            while(negativeKey == 1)
+            while(negativeKey == (uint8)1)
             {
                 STK_Delyms(500);
                 key = KEYPAD_getPressedKeyInteruppt();
-                if(key <= 9) /* if the next character is a number save it in numbers[] */
+                if(key <= (uint8)9) /* if the next character is a number save it in numbers[] */
                 {
                     LCD_intgerToString(key);   /* display the pressed keypad switch */
                     numbers[NUMcounter] = numbers[NUMcounter]*10+key;

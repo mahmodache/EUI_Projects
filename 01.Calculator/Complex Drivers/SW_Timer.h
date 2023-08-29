@@ -7,9 +7,9 @@
 
 #ifndef SW_TIMER_H_
 #define SW_TIMER_H_
+#include "../Service/std_types.h"
 
-
-void SWT_delay(unsigned int ms);
+void SWT_delay(uint32 ms);
 
 
 #endif /* SW_TIMER_H_ */

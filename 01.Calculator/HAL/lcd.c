@@ -9,7 +9,7 @@
 /*                                                                            */
 /* !Coding language : C                                                       */
 /*                                                                            */
-/* !Project         : interfacing Progect @EME - CLASS 1                      */
+/* !Project         : interfacing Project @EME - CLASS 1                      */
 /*                                                                            */
 /* !Target          : TIVA-C TM4C123GH6PM                                     */
 /*                                                                            */
@@ -204,6 +204,8 @@ void LCD_moveCursor(uint8 row,uint8 col)
 		case 3:
 			lcd_memory_address=col+0x50;
 				break;
+		default:
+		    break;
 	}					
 	/* Move the LCD cursor to this specific address */
 	LCD_sendCommand(lcd_memory_address | LCD_SET_CURSOR_LOCATION);

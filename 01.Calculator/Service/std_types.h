@@ -9,7 +9,7 @@
 /*                                                                            */
 /* !Coding language : C                                                       */
 /*                                                                            */
-/* !Project         : interfacing Progect @EME - CLASS 1                      */
+/* !Project         : interfacing Project @EME - CLASS 1                      */
 /*                                                                            */
 /* !Target          : TIVA-C TM4C123GH6PM                                     */
 /*                                                                            */
@@ -29,8 +29,6 @@
 #ifndef STD_TYPES_H_
 #define STD_TYPES_H_
 
-/* Boolean Data Type */
-typedef unsigned char boolean;
 
 /* Boolean Values */
 #ifndef FALSE
